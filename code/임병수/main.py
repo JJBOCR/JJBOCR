@@ -9,3 +9,5 @@ print('Texto: ', text)
 cv2.imshow('Image', image)   # 이미지를 윈도우 창에 출력
 cv2.waitKey(0)  # 사용자 입력을 기다려 주는 함수/ 여기선 destroyAllWindows()를 위해 기다리는 용도이다.
 cv2.destroyAllWindows()
+
+#asdfqwer
