@@ -1,7 +1,7 @@
 import cv2
 import pytesseract
 
-path = '../pic/test01.jpeg'
+path = '../../../PIC/receipt.jpg'
 image = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
 text = pytesseract.image_to_string(image, lang='kor+eng')
 
