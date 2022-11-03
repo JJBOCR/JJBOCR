@@ -1,16 +1,15 @@
 import cv2
 import pytesseract
+from imgproc.tool import get_receipt_from_img, plt_imshow
 
-# pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
+#
+# # pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
 image = cv2.imread('../../PIC/receipt.jpg')
-# text = pytesseract.image_to_string(image, lang='kor+eng')
 
-d = pytesseract.image_to_data(image, lang='kor+eng', output_type=pytesseract.Output.DICT)
-n_boxes = len(d['text'])
-for i in range(n_boxes):
-    if int(d['conf'][i]) > 60:
-        (x, y, w, h) = (d['left'][i], d['top'][i], d['width'][i], d['height'][i])
-        img = cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+receipt_image = get_receipt_from_img(image, width=200, kernel=(5, 5), min_threshold=20, max_threshold=100)
 
-cv2.imshow('img', img)
-cv2.waitKey(0)
+options = '--psm 4'
+text = pytesseract.image_to_string(cv2.cvtColor(receipt_image, cv2.COLOR_BGR2RGB),
+                                   config=options, lang='kor+eng')
+
+print(text)
