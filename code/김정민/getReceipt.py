@@ -10,6 +10,6 @@ receipt_image = get_receipt_from_img(image, width=200, kernel=(5, 5), min_thresh
 
 options = '--psm 4'
 text = pytesseract.image_to_string(cv2.cvtColor(receipt_image, cv2.COLOR_BGR2RGB),
-                                   config=options, lang='kor+eng')
+                                   config=options, lang='kor')
 
 print(text)
