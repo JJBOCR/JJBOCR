@@ -1,3 +1,4 @@
+import imutils
 from imutils.convenience import resize, grab_contours
 from imutils.perspective import four_point_transform
 from imutils import opencv2matplotlib
@@ -6,6 +7,14 @@ import copy
 import matplotlib.pyplot as plt
 import cv2
 import numpy as np
+
+
+def img2gray(image):
+    if len(image.shape) <= 2:
+        return copy.deepcopy(image)
+    else:
+        src = copy.deepcopy(image)
+        return cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
 
 
 def any2rgb(image):
@@ -68,29 +77,35 @@ def remove_shadow(image):
     return result
 
 
-def get_receipt_from_img(image, height=None, width=None, kernel=(5, 5), min_threshold=100, max_threshold=200):
-    org_image = copy.deepcopy(image)
-    image = resize(org_image, height, width)
-    ratio = org_image.shape[1] / float(image.shape[1])
+def detect_receipt_contours(image, kernel=(5, 5), min_threshold=100, max_threshold=200):
 
-    # image_list에 gray, blurred, edge 검출 넣기
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    """ image resize """
+    src = copy.deepcopy(image)
+    dst = imutils.resize(src, src.shape[1], src.shape[0])
+    ratio = src.shape[1] / float(dst.shape[1])
+    """ 1. convert image to grayscale """
+    gray = img2gray(dst)
+    # plot grayscale image
+    plt_imshow('gray', gray)
+    """ 2. Apply Gaussian filter 5 * 5 to get rid of noise """
     blurred = cv2.GaussianBlur(gray, kernel, 0)
-    rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (9, 9))
-    dilated = cv2.dilate(blurred, rect_kernel)
-    edged = cv2.Canny(dilated, min_threshold, max_threshold, apertureSize=3)
+    """ 3. Run Canny edge detector """
+    edged = cv2.Canny(blurred, min_threshold, max_threshold, apertureSize=3)
 
-    contours, hierarchy = cv2.findContours(edged, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    contours = sorted(contours, key=cv2.contourArea, reverse=True)[:10]
+    """ 4. find Contours and sort by contours area """
+    contours = cv2.findContours(edged.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours = imutils.grab_contours(contours)
+    contours = sorted(contours, key=cv2.contourArea, reverse=True)
 
-    receipt_contours = get_receipt_contour(contours)
+    """ 5. find Poly(4 Points) in sorted contours """
+    find_contours = get_receipt_contour(contours)
 
-    if receipt_contours is None:
+    if find_contours is None:
         raise Exception('Could not find outline')
 
-    transform_image = four_point_transform(org_image, receipt_contours.reshape(4, 2) * ratio)
+    transform_image = four_point_transform(src, find_contours.reshape(4, 2) * ratio)
+    plt_imshow('transform_image', transform_image)
     transform_image = remove_shadow(transform_image)
-
     plt_imshow('Transform', transform_image)
 
     return transform_image
