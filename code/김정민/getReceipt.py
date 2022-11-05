@@ -4,7 +4,7 @@ from imgproc.tool import detect_receipt_contours, plt_imshow
 
 #
 # # pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
-image = cv2.imread('../../PIC/receipt.jpg')
+image = cv2.imread('../../PIC/receipt4.jpg')
 
 receipt_image = detect_receipt_contours(image, kernel=(5, 5), min_threshold=20, max_threshold=100)
 cv2.imwrite('../../PIC/return_receipt_section.png', receipt_image)
