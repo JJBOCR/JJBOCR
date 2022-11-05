@@ -59,6 +59,8 @@ def extraction(org_img, contours):
         ar = w * h
         if w > 50 and h > 10:
             roi = receipt[y - margin:y + h + margin, x - margin:x + w + margin]
+            if len(roi)==0:
+                continue
             roi_list.append(roi)
             roi_title_list.append("Roi_{}".format(len(roi_list)))
             color = (0, 0, 255)
