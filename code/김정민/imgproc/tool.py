@@ -84,35 +84,25 @@ def plot_contours(img, contours):
     plt_imshow('outline', src)
 
 
-def detect_receipt_contours(image, kernel=(5, 5), min_threshold=100, max_threshold=200):
-    """ image resize """
-    src = copy.deepcopy(image)
-    dst = imutils.resize(src, src.shape[1], src.shape[0])
-    ratio = src.shape[1] / float(dst.shape[1])
-    """ 1. convert image to grayscale """
-    gray = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
-    # plot grayscale image
-    plt_imshow('gray', gray)
-    """ 2. Apply Gaussian filter 5 * 5 to get rid of noise """
-    blurred = cv2.GaussianBlur(gray, kernel, 0)
-    """ 3. Run Canny edge detector """
-    edged = cv2.Canny(blurred, min_threshold, max_threshold, apertureSize=3)
-    plt_imshow('edge', edged)
-    """ 4. find Contours and sort by contours area """
-    contours = cv2.findContours(edged.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    contours = imutils.grab_contours(contours)
-    plot_contours(src, contours)
-    contours = sorted(contours, key=cv2.contourArea, reverse=True)
+def morph_close(img):
+    gray = copy.deepcopy(img)
+    rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (30, 20))
+    square_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (50, 50))
 
-    """ 5. find Poly(4 Points) in sorted contours """
-    find_contours = get_receipt_contour(contours)
+    gray = cv2.GaussianBlur(gray, (11, 11), 0)
+    blackhat = cv2.morphologyEx(gray, cv2.MORPH_BLACKHAT, rect_kernel)
 
-    if find_contours is None:
-        raise Exception('Could not find outline')
+    grad = cv2.Sobel(blackhat, ddepth=cv2.CV_32F, dx=0, dy=1, ksize=-1)
+    grad = np.absolute(grad)
+    min_val, max_val = np.min(grad), np.max(grad)
+    grad = (grad - min_val) / (max_val - min_val)
+    grad = (grad * 255).astype('uint8')
 
-    transform_image = four_point_transform(src, find_contours.reshape(4, 2) * ratio)
-    plt_imshow('transform_image', transform_image)
-    transform_image = remove_shadow(transform_image)
-    plt_imshow('Transform', transform_image)
+    grad = cv2.morphologyEx(grad, cv2.MORPH_CLOSE, rect_kernel)
+    thresh = cv2.threshold(grad, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
 
-    return transform_image
+    square_thresh = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, square_kernel)
+    square_thresh = cv2.erode(square_thresh, None, iterations=2)
+
+    plt_imshow('result', square_thresh)
+    return square_thresh
