@@ -27,6 +27,7 @@ def detect_receipt_contours(image, kernel=(5, 5), min_threshold=100, max_thresho
     plt_imshow('gray', gray)
     """ 2. Apply Gaussian filter 5 * 5 to get rid of noise """
     blurred = cv2.GaussianBlur(gray, kernel, 0)
+    plt_imshow('blurred', blurred)
     """ 3. Run Canny edge detector """
     edged = cv2.Canny(blurred, min_threshold, max_threshold, apertureSize=3)
     plt_imshow('edge', edged)

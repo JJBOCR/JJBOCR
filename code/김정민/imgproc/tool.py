@@ -49,6 +49,7 @@ def plt_imshow(title='image', img=None, fig_size=(8, 5)):
     plt.show()
 
 
+
 def approximate_contour(contour):
     peri = cv2.arcLength(contour, True)
     return cv2.approxPolyDP(contour, 0.032 * peri, True)
