@@ -6,7 +6,7 @@ JJBOCR
 -----------------
 
   * [요구사항](#요구사항)
-  * [OCR Process](#OCR Process Flow)
+  * [OCR Process](#OCR_Flow)
   * [사용법](#사용법) 
   * [개선방향](#개선방향)
     * 이미지 전처리
@@ -43,7 +43,7 @@ conda activate [가상환경_name]
 python main.py --process [N, 0, 1] --path [relative path to load image] --s [relative path to save the image] --r [relative path to save the result.txt]
 ```
 
-OCR Process Flow
+OCR_Flow
 -------------------------
 ![image](https://user-images.githubusercontent.com/64830434/198179750-1136d80b-a302-4a57-a9ce-eefe359f73b8.png)
 
