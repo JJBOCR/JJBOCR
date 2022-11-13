@@ -30,6 +30,10 @@ OCR 한글 영수증 인식을 위한 요구사항
 [ananaconda]: https://www.anaconda.com/
  * 기타 설치 요구사항은 requirement.txt 참고
  * 해당 requirement.txt는 [Ananaconda][ananaconda] 가상환경을 사용함
+```
+$ conda create -n <environment-name> --file req.txt
+```
+
 
 사용법
 ----------------------------
