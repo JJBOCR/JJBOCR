@@ -1,39 +1,36 @@
 광명밤일점
-011-15-01615 |
-경기도 광명시
 
-161:070)4177-4459
-하안동883-11
+011-15-01615 Tel:070)4177-4459 waa
+경기도 광명시 하안동883-11
+POS: 04-020302363      abe O/T 14120
 
-JIA AI
-eo =
+mn 나 매여 나나 에이미
 
-POS 04-020802363     e022 10/11 Meds
-주문하신 메뉴가 준비되면  해당
+주문하신 메뉴가 준비되면 해당
+주문번호 또는 입력하신 핸드폰번호
+마내드리겠습니다.
 
-주문번호 또는 입력하신 핸드폰번호로
-CLAS eS LICH.
+가마 ON RT RD OY eo
 
-eS a OY MO RS ON oe tt 데이 바나나 아이스.
+ee ek ees res et ee ee oe ewe SSS SS SS
 
-Le SO LAOS wee Ca OES SD LA CS SE re ee es ee      ~
+“04-0083
 
-14:29
+a    으라 ee a 새나                                 Ae De eee 2010 Ne 애매 내사내
 
-Es   we     og ee  See cere nomen ea neten | <eaen 제 ‘wane mcs ces 에페 제때 eps aches 고  ~  ~
-- 개 =   우구 개워우으우국느으스모오거음은우우루우을은으논훈후즈스프
-202 nisin ee ce 애가. -애그따씨  Ee Sh een Oe 비애 me mayen 나스   tn Ne me
+aos. 스기  a       =
+=  = 죽는 즈즌
 
-men     nee                               Se Aree tre rs Ae im ince,
+지퍼 ee er
 
-투썸플레이스 nA  RIOLA}SO} 080- -123-2929
-WiFi PW. 123456789a
-' “ere |  ae
+투썸플레이- A, 칭업상담문의 080- -723-2929
 
-T= tebe Ge
-5      Paya, (ET te pe                    A tee ee
--          …          Fy PA CE          ae ete eee ee, 여여
-ee 서니
+WiF P.W. 129456789
+, * 개베어 |  aa"
 
-005260400033
+400 Weve hme tems cme 님,
+pat               Ft freeipmatticos’ cand" eev eortfcercteeatee areal a ee 때   =
 
+111 4005260400033
+
+ refactor 결과 call detect_receipt_contours => pytesseract.image2string
