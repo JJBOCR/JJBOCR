@@ -9,7 +9,7 @@ def image2string(img, title=None):
     if title is None:
         path = 'result/result.txt'
     else:
-        path = 'result/' + title
+        path = title
     file = open(path, 'w+')
     file.write("")
     file.close()
