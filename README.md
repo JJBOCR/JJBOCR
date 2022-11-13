@@ -37,8 +37,10 @@ $ conda create -n <environment-name> --file requriement.txt
 
 사용법
 ----------------------------
+Anaconda prompt을 실행시킨 후 가상환경으로 설정한 후 다음을 실행한다. 
 ```shell
-python main.py --path [path] --process [process name]
+conda activate [가상환경_name]
+python main.py --process [N, 0, 1] --path [relative path to load image] --s [relative path to save the image] --r [relative path to save the result.txt]
 ```
 
 OCR Process Flow
